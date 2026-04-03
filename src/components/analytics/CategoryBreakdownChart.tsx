@@ -13,7 +13,7 @@ interface CatData {
   category: string;
   count: number;
 }
-
+import type { Props as LegendProps } from "recharts/types/component/DefaultLegendContent";
 const PALETTE = [
   "var(--color-accent)",
   "var(--color-violet)",
@@ -56,9 +56,7 @@ const CustomTooltip = ({ active, payload }: CustomTooltipProps) => {
 };
 
 // Custom legend
-const renderLegend = (props: {
-  payload?: { value: string; color: string }[];
-}) => {
+const renderLegend = (props: LegendProps) => {
   const { payload = [] } = props;
   return (
     <div className="flex flex-wrap justify-center gap-x-4 gap-y-1.5 mt-2">
@@ -66,7 +64,7 @@ const renderLegend = (props: {
         <div key={i} className="flex items-center gap-1.5">
           <div
             className="w-2 h-2 rounded-full"
-            style={{ background: entry.color }}
+            style={{ background: entry.color ?? "#888" }}
           />
           <span
             className="text-[10px]"
