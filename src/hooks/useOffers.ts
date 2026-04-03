@@ -1,3 +1,4 @@
+// src/hooks/useOffers.ts
 "use client";
 
 import { useState, useEffect, useRef } from "react";
@@ -14,7 +15,7 @@ import {
   type QueryDocumentSnapshot,
   type DocumentData,
 } from "firebase/firestore";
-import { db } from "@/config/firsbase";
+import { db } from "@/config/firebase";
 import type { Offer } from "@/types";
 
 const PAGE_SIZE = 20;

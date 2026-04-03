@@ -1,39 +1,10 @@
+"use client";
 import Header from "./layout/Header";
 import Footer from "./layout/Footer";
 import EntryForm from "./EntryForm";
 import DashboardTable from "./DashboardTable";
 import AnalyticsPanel from "./analytics/AnalyticsPanel";
-
-const stats = [
-  {
-    label: "Total Submissions",
-    value: "—",
-    sub: "live from Firestore",
-    accent: "cyan" as const,
-    icon: "📊",
-  },
-  {
-    label: "Institutes",
-    value: "24",
-    sub: "IITs + IISc",
-    accent: "violet" as const,
-    icon: "🏛️",
-  },
-  {
-    label: "Program Types",
-    value: "4",
-    sub: "Mtech · MS · RA variants",
-    accent: "green" as const,
-    icon: "🎯",
-  },
-  {
-    label: "Categories",
-    value: "6",
-    sub: "General · EWS · OBC · SC · ST · PwD",
-    accent: "amber" as const,
-    icon: "🗂️",
-  },
-];
+import { useSubmissionCount } from "@/hooks/useSubmissionCount";
 
 const accentMap = {
   cyan: "stat-card-cyan",
@@ -49,6 +20,37 @@ const valueColors = {
 };
 
 export default function OfferTracker() {
+  const submissionCount = useSubmissionCount();
+  const stats = [
+    {
+      label: "Total Submissions",
+      value: submissionCount !== null ? submissionCount : "—",
+      sub: "live from Firestore",
+      accent: "cyan" as const,
+      icon: "📊",
+    },
+    {
+      label: "Institutes",
+      value: "24",
+      sub: "IITs + IISc",
+      accent: "violet" as const,
+      icon: "🏛️",
+    },
+    {
+      label: "Program Types",
+      value: "4",
+      sub: "Mtech · MS · RA variants",
+      accent: "green" as const,
+      icon: "🎯",
+    },
+    {
+      label: "Categories",
+      value: "6",
+      sub: "General · EWS · OBC · SC · ST · PwD",
+      accent: "amber" as const,
+      icon: "🗂️",
+    },
+  ];
   return (
     <div
       className="min-h-screen"

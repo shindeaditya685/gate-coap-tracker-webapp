@@ -7,7 +7,7 @@ import { signInAnonymously } from "firebase/auth";
 import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
 import { useTheme } from "next-themes";
 import toast from "react-hot-toast";
-import { db, auth } from "@/config/firsbase";
+import { db, auth } from "@/config/firebase";
 import {
   CATEGORIES,
   INSTITUTES,

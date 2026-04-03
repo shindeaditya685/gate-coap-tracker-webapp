@@ -9,7 +9,7 @@ import {
   where,
   type QueryConstraint,
 } from "firebase/firestore";
-import { db } from "@/config/firsbase";
+import { db } from "@/config/firebase";
 import type { Offer } from "@/types";
 
 export interface AnalyticsData {
