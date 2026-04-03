@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   title: "GATE CSE COAP Tracker",
   description:
     "Track M.Tech & MS cut-offs across IITs and IISc in real-time. Community-driven, anonymous.",
-  icons: { icon: "/favicon.ico" },
+  icons: { icon: "/favicon.svg" },
 };
 
 export default function RootLayout({
