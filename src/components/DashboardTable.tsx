@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { Timestamp } from 'firebase/firestore';
 import { CATEGORIES, INSTITUTES } from '@/utils/constants';
 import { useOffers } from '@/hooks/useOffers';
@@ -222,15 +222,30 @@ const OfferRow = ({ offer, isNew }: OfferRowProps) => (
   </tr>
 );
 
+interface DashboardTableProps {
+  onTotalCount?: (count: number) => void;
+}
+
 /* ── Main Component ─────────────────────────────────────── */
-export default function DashboardTable() {
+export default function DashboardTable({onTotalCount}: DashboardTableProps) {
   const [filterInstitute, setFilterInstitute] = useState('All');
   const [filterCategory,  setFilterCategory]  = useState('All');
 
   const {
-    offers, loading, loadingMore,
-    hasMore, error, totalLoaded, newIds, loadMore,
+    offers,
+    loading,
+    loadingMore,
+    hasMore,
+    error,
+    totalLoaded,
+    newIds,
+    loadMore,
+    totalCount,
   } = useOffers(filterInstitute, filterCategory);
+
+   useEffect(() => {
+     onTotalCount?.(totalCount);
+   }, [totalCount, onTotalCount]);
 
   const filtersActive = filterInstitute !== 'All' || filterCategory !== 'All';
 
