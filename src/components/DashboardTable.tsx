@@ -268,71 +268,103 @@ export default function DashboardTable({onTotalCount}: DashboardTableProps) {
 
   return (
     <div className="card">
-
       {/* ── Table Header ── */}
-      <div className="p-5 md:p-6 border-b" style={{ borderColor: 'var(--color-border)' }}>
+      <div
+        className="p-5 md:p-6 border-b"
+        style={{ borderColor: "var(--color-border)" }}
+      >
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-
           <div className="flex items-center gap-3">
             <div>
               <h2
                 className="text-lg font-bold"
-                style={{ fontFamily: 'var(--font-display)', color: 'var(--color-text-primary)' }}
+                style={{
+                  fontFamily: "var(--font-display)",
+                  color: "var(--color-text-primary)",
+                }}
               >
                 Recent Offers
               </h2>
               <div className="flex items-center gap-2 mt-0.5">
-                <div className="live-dot" style={{ width: '6px', height: '6px' }} />
+                <div
+                  className="live-dot"
+                  style={{ width: "6px", height: "6px" }}
+                />
                 <span
                   className="text-xs"
-                  style={{ fontFamily: 'var(--font-mono)', color: 'var(--color-text-muted)' }}
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    color: "var(--color-text-muted)",
+                  }}
                 >
                   {loading
-                    ? 'connecting…'
-                    : `${totalLoaded.toLocaleString()} offer${totalLoaded !== 1 ? 's' : ''} loaded`}
+                    ? "connecting…"
+                    : `${totalLoaded.toLocaleString()} offer${totalLoaded !== 1 ? "s" : ""} loaded`}
                 </span>
               </div>
             </div>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2">
-            <FilterIcon />
-            <select
-              value={filterInstitute}
-              onChange={e => setFilterInstitute(e.target.value)}
-              className={selectCls}
-              style={{ maxWidth: '180px' }}
-              aria-label="Filter by institute"
-            >
-              {INSTITUTES.map(inst => (
-                <option key={inst} value={inst}>{inst}</option>
-              ))}
-            </select>
-            <select
-              value={filterCategory}
-              onChange={e => setFilterCategory(e.target.value)}
-              className={selectCls}
-              aria-label="Filter by category"
-            >
-              {CATEGORIES.map(cat => (
-                <option key={cat} value={cat}>{cat}</option>
-              ))}
-            </select>
-            {filtersActive && (
-              <button onClick={clearFilters} className="btn-ghost text-xs px-3 py-2">
-                Clear
-              </button>
-            )}
+          {/* Right: filters + export */}
+          <div className="flex items-center gap-2 flex-wrap sm:flex-nowrap">
+            {/* Filter icon + selects group */}
+            <div className="flex items-center gap-2">
+              <span style={{ color: "var(--color-text-muted)", flexShrink: 0 }}>
+                <FilterIcon />
+              </span>
+
+              <select
+                value={filterInstitute}
+                onChange={(e) => setFilterInstitute(e.target.value)}
+                className={selectCls}
+                style={{ width: "160px" }}
+                aria-label="Filter by institute"
+              >
+                {INSTITUTES.map((inst) => (
+                  <option key={inst} value={inst}>
+                    {inst}
+                  </option>
+                ))}
+              </select>
+
+              <select
+                value={filterCategory}
+                onChange={(e) => setFilterCategory(e.target.value)}
+                className={selectCls}
+                style={{ width: "120px" }}
+                aria-label="Filter by category"
+              >
+                {CATEGORIES.map((cat) => (
+                  <option key={cat} value={cat}>
+                    {cat}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Divider */}
             <div
-              className="h-4 w-px mx-1 hidden sm:block"
-              style={{ background: 'var(--color-border)' }}
+              className="h-6 w-px flex-shrink-0"
+              style={{ background: "var(--color-border)" }}
             />
-            <ExportMenu
-              offers={offers}
-              filterInstitute={filterInstitute}
-              filterCategory={filterCategory}
-              disabled={loading}
-            />
+
+            {/* Clear + Export group */}
+            <div className="flex items-center gap-2 flex-shrink-0">
+              {filtersActive && (
+                <button
+                  onClick={clearFilters}
+                  className="btn-ghost text-xs px-3 py-2 flex-shrink-0"
+                >
+                  Clear
+                </button>
+              )}
+              <ExportMenu
+                offers={offers}
+                filterInstitute={filterInstitute}
+                filterCategory={filterCategory}
+                disabled={loading}
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -342,19 +374,27 @@ export default function DashboardTable({onTotalCount}: DashboardTableProps) {
         <div
           className="mx-6 mt-6 flex items-start gap-3 p-4 rounded-xl"
           style={{
-            background: 'var(--color-danger-muted)',
-            border: '1px solid rgba(248,113,113,0.25)',
+            background: "var(--color-danger-muted)",
+            border: "1px solid rgba(248,113,113,0.25)",
           }}
         >
-          <span style={{ color: 'var(--color-danger)', flexShrink: 0 }}><AlertIcon /></span>
+          <span style={{ color: "var(--color-danger)", flexShrink: 0 }}>
+            <AlertIcon />
+          </span>
           <div>
             <p
               className="text-sm font-semibold"
-              style={{ color: 'var(--color-danger)', fontFamily: 'var(--font-display)' }}
+              style={{
+                color: "var(--color-danger)",
+                fontFamily: "var(--font-display)",
+              }}
             >
               Connection Error
             </p>
-            <p className="text-xs mt-0.5" style={{ color: 'var(--color-text-secondary)' }}>
+            <p
+              className="text-xs mt-0.5"
+              style={{ color: "var(--color-text-secondary)" }}
+            >
               {error}
             </p>
           </div>
@@ -367,13 +407,19 @@ export default function DashboardTable({onTotalCount}: DashboardTableProps) {
           <thead>
             <tr
               className="border-b"
-              style={{ background: 'var(--color-bg-surface)', borderColor: 'var(--color-border)' }}
+              style={{
+                background: "var(--color-bg-surface)",
+                borderColor: "var(--color-border)",
+              }}
             >
-              {TABLE_COLS.map(col => (
+              {TABLE_COLS.map((col) => (
                 <th
                   key={col.label}
                   className={`p-4 text-[10px] font-semibold tracking-widest uppercase ${col.cls}`}
-                  style={{ fontFamily: 'var(--font-mono)', color: 'var(--color-text-muted)' }}
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    color: "var(--color-text-muted)",
+                  }}
                 >
                   {col.label}
                 </th>
@@ -389,28 +435,36 @@ export default function DashboardTable({onTotalCount}: DashboardTableProps) {
                 <td colSpan={7} className="py-16 text-center">
                   <div
                     className="flex flex-col items-center gap-3"
-                    style={{ color: 'var(--color-text-muted)' }}
+                    style={{ color: "var(--color-text-muted)" }}
                   >
                     <EmptyIcon />
                     <div>
                       <p
                         className="text-sm font-semibold"
-                        style={{ fontFamily: 'var(--font-display)', color: 'var(--color-text-secondary)' }}
+                        style={{
+                          fontFamily: "var(--font-display)",
+                          color: "var(--color-text-secondary)",
+                        }}
                       >
                         No offers found
                       </p>
                       <p
                         className="text-xs mt-1"
-                        style={{ fontFamily: 'var(--font-mono)', color: 'var(--color-text-muted)' }}
+                        style={{
+                          fontFamily: "var(--font-mono)",
+                          color: "var(--color-text-muted)",
+                        }}
                       >
-                        {filtersActive ? 'Try adjusting your filters' : 'Be the first to report an offer!'}
+                        {filtersActive
+                          ? "Try adjusting your filters"
+                          : "Be the first to report an offer!"}
                       </p>
                     </div>
                   </div>
                 </td>
               </tr>
             ) : (
-              offers.map(offer => (
+              offers.map((offer) => (
                 <OfferRow
                   key={offer.id}
                   offer={offer}
@@ -426,7 +480,7 @@ export default function DashboardTable({onTotalCount}: DashboardTableProps) {
       {!loading && !error && hasMore && (
         <div
           className="p-5 flex items-center justify-center border-t"
-          style={{ borderColor: 'var(--color-border)' }}
+          style={{ borderColor: "var(--color-border)" }}
         >
           <button
             onClick={loadMore}
@@ -434,9 +488,12 @@ export default function DashboardTable({onTotalCount}: DashboardTableProps) {
             className="btn-ghost flex items-center gap-2 px-5 py-2.5 text-sm"
           >
             {loadingMore ? (
-              <><SpinnerIcon /><span>Loading…</span></>
+              <>
+                <SpinnerIcon />
+                <span>Loading…</span>
+              </>
             ) : (
-              'Load More Offers'
+              "Load More Offers"
             )}
           </button>
         </div>
@@ -446,11 +503,14 @@ export default function DashboardTable({onTotalCount}: DashboardTableProps) {
       {!loading && !error && !hasMore && offers.length > 0 && (
         <div
           className="p-4 text-center border-t"
-          style={{ borderColor: 'var(--color-border)' }}
+          style={{ borderColor: "var(--color-border)" }}
         >
           <span
             className="text-xs"
-            style={{ fontFamily: 'var(--font-mono)', color: 'var(--color-text-muted)' }}
+            style={{
+              fontFamily: "var(--font-mono)",
+              color: "var(--color-text-muted)",
+            }}
           >
             ── all {totalLoaded} offers loaded ──
           </span>
@@ -460,19 +520,35 @@ export default function DashboardTable({onTotalCount}: DashboardTableProps) {
       {/* ── Flag legend ── */}
       <div
         className="px-5 py-3 border-t flex items-center gap-2"
-        style={{ borderColor: 'var(--color-border)', background: 'var(--color-bg-surface)' }}
+        style={{
+          borderColor: "var(--color-border)",
+          background: "var(--color-bg-surface)",
+        }}
       >
-        <svg className="w-3 h-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} style={{ color: 'var(--color-text-muted)' }}>
-          <path strokeLinecap="round" strokeLinejoin="round"
-            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        <svg
+          className="w-3 h-3 flex-shrink-0"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+          style={{ color: "var(--color-text-muted)" }}
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
         </svg>
         <p
           className="text-[10px]"
-          style={{ fontFamily: 'var(--font-mono)', color: 'var(--color-text-muted)' }}
+          style={{
+            fontFamily: "var(--font-mono)",
+            color: "var(--color-text-muted)",
+          }}
         >
-          Flag incorrect or fake offers. Entries flagged 5 times are hidden automatically.
+          Flag incorrect or fake offers. Entries flagged 5 times are hidden
+          automatically.
         </p>
       </div>
-
     </div>
   );}
